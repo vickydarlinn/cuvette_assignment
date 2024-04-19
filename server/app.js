@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 
 const app = express();
 dotenv.config();
+app.use(express.json()); // Middleware to parse JSON bodies
 
 // Basic route
 const authRoutes = require("./routes/authRouter");
@@ -15,6 +16,5 @@ app.get("/", (req, res) => {
   res.send("Hello, Web Story Platform!");
 });
 console.log(process.env.PORT);
-app.use(express.json()); // Middleware to parse JSON bodies
 
 module.exports = app;
