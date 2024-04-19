@@ -90,9 +90,7 @@ exports.login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
-      expiresIn: 3600,
-    });
+    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
 
     res.json({
       success: true,

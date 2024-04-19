@@ -8,7 +8,7 @@ exports.createStory = async (req, res) => {
     const author = req.user.id;
     if (slides.length < 3 || slides.length > 6) {
       return res.status(400).json({
-        status: "error",
+        success: false,
         message: "A story must have between 3 and 6 slides",
         data: null,
       });
@@ -22,13 +22,13 @@ exports.createStory = async (req, res) => {
 
     await newStory.save();
     res.status(201).json({
-      status: "success",
+      success: true,
       message: "Story created successfully",
       data: newStory,
     });
   } catch (error) {
     res.status(500).json({
-      status: "error",
+      success: false,
       message: "Server error while creating story",
       data: error.message,
     });
@@ -68,42 +68,7 @@ exports.editStory = async (req, res) => {
     });
   }
 };
-// Fetch bookmarked stories
-exports.fetchBookmarkedStories = async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).populate("bookmarks");
-    res.status(200).json({
-      success: true,
 
-      message: "Bookmarked stories retrieved successfully",
-      data: user.bookmarks,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-
-      message: "Server error while fetching bookmarked stories",
-      data: error.message,
-    });
-  }
-};
-// Fetch stories created by the user
-exports.fetchMyStories = async (req, res) => {
-  try {
-    const stories = await Story.find({ author: req.user.id });
-    res.status(200).json({
-      success: true,
-      message: "Stories retrieved successfully",
-      data: stories,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Server error while fetching user stories",
-      data: error.message,
-    });
-  }
-};
 // Fetch stories by category
 exports.fetchStoriesByCategory = async (req, res) => {
   try {
@@ -144,6 +109,81 @@ exports.getStoryById = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Server error while retrieving story",
+      data: error.message,
+    });
+  }
+};
+
+// Toggle bookmark on a story
+exports.toggleBookmark = async (req, res) => {
+  const storyId = req.params.id;
+  const userId = req.user._id;
+
+  try {
+    const story = await Story.findById(storyId);
+    const user = await User.findById(userId);
+
+    if (!story || !user) {
+      return res.status(404).json({
+        status: "error",
+        message: "Story or user not found",
+        data: null,
+      });
+    }
+    const index = user.bookmarks.indexOf(storyId);
+    if (index === -1) {
+      user.bookmarks.push(storyId);
+    } else {
+      user.bookmarks.splice(index, 1);
+    }
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Bookmark toggled successfully",
+      data: user.bookmarks,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error toggling bookmark",
+      data: error.message,
+    });
+  }
+};
+// Toggle like on a story
+exports.toggleLike = async (req, res) => {
+  const storyId = req.params.id;
+  const userId = req.user._id;
+
+  try {
+    const story = await Story.findById(storyId);
+
+    if (!story) {
+      return res.status(404).json({
+        success: false,
+        message: "Story not found",
+        data: null,
+      });
+    }
+    const index = story.likes.indexOf(userId);
+    console.log(index);
+    if (index === -1) {
+      story.likes.push(userId);
+    } else {
+      story.likes.splice(index, 1);
+    }
+    await story.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Like toggled successfully",
+      data: story.likes.length,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error toggling like",
       data: error.message,
     });
   }

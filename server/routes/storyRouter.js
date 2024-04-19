@@ -6,9 +6,13 @@ const router = express.Router();
 
 router.post("/", authenticate, storyController.createStory);
 router.put("/:id", authenticate, storyController.editStory);
-router.get("/bookmarks", authenticate, storyController.fetchBookmarkedStories);
-router.get("/my-stories", authenticate, storyController.fetchMyStories);
 router.get("/categories/:category", storyController.fetchStoriesByCategory);
 router.get("/:id", storyController.getStoryById);
+router.get(
+  "/toggle-bookmark/:id",
+  authenticate,
+  storyController.toggleBookmark
+);
+router.get("/toggle-like/:id", authenticate, storyController.toggleLike);
 
 module.exports = router;
