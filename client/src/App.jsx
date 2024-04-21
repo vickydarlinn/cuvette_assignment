@@ -1,10 +1,9 @@
-// import FilterCard from "./components/filterCard";
-import StoryCard from "./components/storyCard";
+import StoriesWrapper from "./components/storiesWrapper";
 
 const App = () => {
   return (
     <div>
-      <StoryCard />
+      <StoriesWrapper />
     </div>
   );
 };
