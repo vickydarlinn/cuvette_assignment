@@ -4,8 +4,8 @@ const User = require("../models/userModel");
 
 exports.register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    if (!username || !email || !password) {
+    const { username, password } = req.body;
+    if (!username || !password) {
       return res.status(400).json({
         success: false,
         message: "Please enter all fields",
@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
       });
     }
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({
         success: false,
@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
 
     const newUser = new User({
       username,
-      email,
+
       password: hashedPassword,
     });
 
@@ -44,7 +44,6 @@ exports.register = async (req, res) => {
         user: {
           id: newUser._id,
           username: newUser.username,
-          email: newUser.email,
         },
         token,
       },
@@ -59,9 +58,9 @@ exports.register = async (req, res) => {
 };
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!email || !password) {
+    if (!username || !password) {
       return res.status(400).json({
         success: false,
         message: "Please enter all fields",
@@ -69,7 +68,7 @@ exports.login = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -77,10 +76,7 @@ exports.login = async (req, res) => {
         data: null,
       });
     }
-    console.log(user.password);
-    console.log(password);
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log(isMatch);
 
     if (!isMatch) {
       return res.status(400).json({
@@ -99,7 +95,6 @@ exports.login = async (req, res) => {
         user: {
           id: user._id,
           username: user.username,
-          email: user.email,
         },
         token,
       },
