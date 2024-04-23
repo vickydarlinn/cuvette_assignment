@@ -1,0 +1,8 @@
+.filterWrapper {
+  display: flex;
+  margin: 0 0 20px 0;
+  gap: 40px;
+  width: 100%;
+  overflow: auto;
+  padding: 40px 0;
+}

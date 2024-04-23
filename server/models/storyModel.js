@@ -4,7 +4,7 @@ const StorySchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ["food", "health and fitness", "travel", "movies", "education"],
+    enum: ["food", "health_and_fitness", "travel", "movies", "education"],
   },
   slides: [
     {
