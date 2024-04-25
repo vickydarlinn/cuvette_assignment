@@ -5,16 +5,26 @@ import { backend_api } from "../../utils/constant";
 
 const StoriesWrapper = ({ category }) => {
   const [storiesData, setStoriesData] = useState([]);
-  const fetchStoriesFn = async (category) => {
+  const [page, setPage] = useState(1);
+  const [pendingStories, setPendingStories] = useState();
+
+  const fetchStoriesFn = async (category, currentPage) => {
     const response = await fetch(
-      `${backend_api}/stories/categories/${category}`
+      `${backend_api}/stories/categories/${category}?page=${currentPage}`
     );
     const { data } = await response.json();
-    setStoriesData(data);
+    setStoriesData((prev) => [...prev, ...data.stories]);
+    console.log(data.totalStories, page * 4);
+    setPendingStories(data.totalStories - page * 4);
   };
+
   useEffect(() => {
-    fetchStoriesFn(category);
-  }, []);
+    fetchStoriesFn(category, page); // Pass the current page here
+  }, [category, page]); // Add page as a dependency
+
+  const handleLoadMore = () => {
+    setPage((prev) => prev + 1);
+  };
   return (
     <section className={style.wrapper}>
       <h2 className={style.heading}>Top Stories about {category}</h2>
@@ -28,6 +38,7 @@ const StoriesWrapper = ({ category }) => {
       ) : (
         <div className={style.storyNotFound}>No Stories Available</div>
       )}
+      {pendingStories > 0 && <button onClick={handleLoadMore}>See More</button>}
     </section>
   );
 };

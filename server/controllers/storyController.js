@@ -70,16 +70,33 @@ exports.editStory = async (req, res) => {
   }
 };
 
-// Fetch stories by category
+// Fetch stories by category with pagination
 exports.fetchStoriesByCategory = async (req, res) => {
   try {
     const { category } = req.params;
-    const stories = await Story.find({ category });
+    const page = parseInt(req.query.page) || 1; // Get page number from query parameter or default to 1
+    const limit = 4; // Number of stories per page
+    const skip = (page - 1) * limit; // Calculate how many documents to skip
+
+    const count = await Story.countDocuments({ category });
+    const stories = await Story.find({ category }).skip(skip).limit(limit);
+
+    if (stories.length === 0 && count > 1) {
+      return res.status(404).json({
+        success: false,
+        message: "No stories found for this category",
+        data: [],
+      });
+    }
 
     res.status(200).json({
       success: true,
       message: "Stories filtered by category retrieved successfully",
-      data: stories,
+      data: {
+        stories,
+        totalStories: count,
+        currentPage: page,
+      },
     });
   } catch (error) {
     res.status(500).json({
@@ -89,6 +106,7 @@ exports.fetchStoriesByCategory = async (req, res) => {
     });
   }
 };
+
 // Fetch a single story by ID
 exports.getStoryById = async (req, res) => {
   try {
