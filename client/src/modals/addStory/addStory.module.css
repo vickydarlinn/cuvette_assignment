@@ -5,14 +5,112 @@
   top: 0;
   width: 100vw;
   height: 100vh;
+  z-index: 100;
 }
 
 .modal {
   background-color: white;
+  width: 100%;
+  max-width: 475px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
+}
+.slides {
+  display: flex;
+  gap: 20px;
+  overflow: auto;
+  padding: 30px 10px;
+}
+.slide {
+  position: relative;
+  width: 100px;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.addSlide {
+  width: 100px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100px;
+  cursor: pointer;
+  box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.slideCross {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  display: none;
+  color: gray;
+  width: 15px;
+  height: 15px;
+}
+
+.slide:hover .slideCross {
+  display: block;
+}
+.storyInfo {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.heading,
+.description,
+.image,
+.category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input {
+  flex-grow: 1;
+  padding: 4px;
+  outline: none;
+}
+input:active {
+  outline: none;
+}
+textarea {
+  flex-grow: 1;
+  outline: none;
+}
+option {
+  flex-grow: 1;
+  padding: 4px;
+}
+select {
+  flex-grow: 1;
+  padding: 4px;
+  outline: none;
+}
+label {
+  min-width: 100px;
+}
+.btns {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+button {
+  padding: 4px;
+  min-width: 80px;
+  cursor: pointer;
 }

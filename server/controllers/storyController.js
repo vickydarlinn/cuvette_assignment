@@ -15,7 +15,7 @@ exports.createStory = async (req, res) => {
     }
 
     const newStory = new Story({
-      category,
+      category: category.toLowerCase(),
       slides,
       author,
     });
@@ -27,6 +27,7 @@ exports.createStory = async (req, res) => {
       data: newStory,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: "Server error while creating story",

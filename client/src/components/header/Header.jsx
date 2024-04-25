@@ -8,11 +8,13 @@ import { isUserLoggedInState } from "../../atom";
 import { useRecoilValue } from "recoil";
 import RegisterModal from "../../modals/register";
 import LoginModal from "../../modals/login";
+import AddStoryModal from "../../modals/addStory";
 
 const Header = () => {
   const isUserLoggedIn = useRecoilValue(isUserLoggedInState);
   const [isShowingRegister, setIsShowingRegister] = useState(false);
   const [isShowingLogin, setIsShowingLogin] = useState(false);
+  const [isShowingAddStory, setIsShowingAddStory] = useState(false);
 
   const handleRegister = () => {
     setIsShowingRegister(true);
@@ -21,7 +23,9 @@ const Header = () => {
   const handleLogin = () => {
     setIsShowingLogin(true);
   };
-
+  const handleShowAddStoryModal = () => {
+    setIsShowingAddStory(true);
+  };
   return (
     <>
       <header className={styles.wrapper}>
@@ -35,7 +39,12 @@ const Header = () => {
               </span>
               <span>Bookmarks</span>
             </Link>
-            <div className={`${styles.navBtn} ${styles.red}`}>Add story</div>
+            <div
+              onClick={handleShowAddStoryModal}
+              className={`${styles.navBtn} ${styles.red}`}
+            >
+              Add story
+            </div>
             <div className={styles.userProfile}>
               <FaUserCircle />
             </div>
@@ -69,6 +78,12 @@ const Header = () => {
       )}
       {isShowingLogin && (
         <LoginModal isOpen={isShowingLogin} handleIsOpen={setIsShowingLogin} />
+      )}
+      {isShowingAddStory && (
+        <AddStoryModal
+          isOpen={isShowingAddStory}
+          handleIsOpen={setIsShowingAddStory}
+        />
       )}
     </>
   );

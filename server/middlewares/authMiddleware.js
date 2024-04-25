@@ -18,7 +18,7 @@ const authenticate = async (req, res, next) => {
     // Add user from payload
     req.user = await User.findById(decoded.id).select("-password"); // Exclude password from the user object
     if (!req.user) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "User not found",
         data: null,
@@ -26,7 +26,7 @@ const authenticate = async (req, res, next) => {
     }
     next();
   } catch (e) {
-    res.status(400).json({
+    res.status(401).json({
       success: false,
       message: "Token is not valid",
       data: null,
