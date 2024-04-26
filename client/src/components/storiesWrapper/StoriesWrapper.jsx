@@ -14,7 +14,6 @@ const StoriesWrapper = ({ category }) => {
     );
     const { data } = await response.json();
     setStoriesData((prev) => [...prev, ...data.stories]);
-    console.log(data.totalStories, page * 4);
     setPendingStories(data.totalStories - page * 4);
   };
 
@@ -32,7 +31,7 @@ const StoriesWrapper = ({ category }) => {
       {storiesData?.length > 0 ? (
         <div className={style.storiesWrapper}>
           {storiesData?.map((story) => (
-            <StoryCard key={story.id} story={story} />
+            <StoryCard key={story._id} storyData={story} />
           ))}
         </div>
       ) : (
