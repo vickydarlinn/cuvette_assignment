@@ -6,7 +6,6 @@ const ShowStory = ({ storyData }) => {
   const [progress, setProgress] = useState(0);
 
   const duration = 15000 * storyData?.slides?.length || 3;
-  console.log(storyData);
 
   useEffect(() => {
     let intervalId;
@@ -39,7 +38,16 @@ const ShowStory = ({ storyData }) => {
 
   return (
     <div className={style.wrapper}>
-      <div className={style.modal}>
+      <div
+        className={style.modal}
+        style={{
+          backgroundImage: `
+          linear-gradient(0deg, rgb(0 0 0 / 80%) 10%, rgb(0 0 0 / 0%) 80%, rgb(0 0 0) 100%), 
+                    url(${storyData.slides[currentSlideIndex].image})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      >
         <div className={style.progressBarContainer}>
           {storyData?.slides?.map((slide, index) => {
             const isActive = index === currentSlideIndex;
@@ -54,29 +62,15 @@ const ShowStory = ({ storyData }) => {
             );
           })}
         </div>
-        <p className={style.para}>
-          this is a modal {storyData.slides[currentSlideIndex].heading}
-        </p>
-        <button
-          onClick={() => {
-            if (currentSlideIndex > 0) {
-              setCurrentSlideIndex((prevIndex) => prevIndex - 1);
-              setProgress(0);
-            }
-          }}
-        >
-          Prev
-        </button>
-        <button
-          onClick={() => {
-            if (currentSlideIndex < storyData.slides.length - 1) {
-              setCurrentSlideIndex((prevIndex) => prevIndex + 1);
-              setProgress(0);
-            }
-          }}
-        >
-          Next
-        </button>
+
+        <div className={style.info}>
+          <h3 className={style.heading}>
+            {storyData.slides[currentSlideIndex].heading}
+          </h3>
+          <p className={style.description}>
+            {storyData.slides[currentSlideIndex].description}
+          </p>
+        </div>
       </div>
     </div>
   );
