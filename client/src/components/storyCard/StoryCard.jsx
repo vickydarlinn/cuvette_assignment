@@ -29,7 +29,12 @@ const StoryCard = ({ storyData }) => {
           </p>
         </div>
       </div>
-      {isViewingStory && <ShowStory storyData={storyData} />}
+      {isViewingStory && (
+        <ShowStory
+          storyData={storyData}
+          setIsViewingStory={setIsViewingStory}
+        />
+      )}
     </>
   );
 };

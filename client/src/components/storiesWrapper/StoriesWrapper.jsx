@@ -3,7 +3,7 @@ import StoryCard from "../storyCard";
 import style from "./storiesWrapper.module.css";
 import { backend_api } from "../../utils/constant";
 
-const StoriesWrapper = ({ category }) => {
+const StoriesWrapper = ({ category, name }) => {
   const [storiesData, setStoriesData] = useState([]);
   const [page, setPage] = useState(1);
   const [pendingStories, setPendingStories] = useState();
@@ -19,14 +19,14 @@ const StoriesWrapper = ({ category }) => {
 
   useEffect(() => {
     fetchStoriesFn(category, page); // Pass the current page here
-  }, [category, page]); // Add page as a dependency
+  }, [page]); // Add page as a dependency
 
   const handleLoadMore = () => {
     setPage((prev) => prev + 1);
   };
   return (
     <section className={style.wrapper}>
-      <h2 className={style.heading}>Top Stories about {category}</h2>
+      <h2 className={style.heading}>Top Stories about {name}</h2>
 
       {storiesData?.length > 0 ? (
         <div className={style.storiesWrapper}>

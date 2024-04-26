@@ -58,10 +58,39 @@
   bottom: 10px;
   left: 10px;
   color: white;
-  text-decoration: capitalize;
 }
-
+.heading {
+  text-transform: capitalize;
+}
 .description {
   color: rgb(188, 188, 188);
   font-size: 1.4rem;
+}
+.social {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  color: white;
+  width: 100%;
+  cursor: pointer;
+}
+.prev {
+  z-index: 20;
+  color: white;
+  position: fixed;
+  top: 50%;
+  left: 25%;
+  cursor: pointer;
+}
+.next {
+  z-index: 20;
+  color: white;
+  position: fixed;
+  top: 50%;
+  right: 25%;
+  cursor: pointer;
 }

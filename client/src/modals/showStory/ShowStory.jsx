@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import style from "./showStory.module.css";
 
-const ShowStory = ({ storyData }) => {
+const ShowStory = ({ storyData, setIsViewingStory }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [progress, setProgress] = useState(0);
 
@@ -36,8 +36,24 @@ const ShowStory = ({ storyData }) => {
     return () => clearInterval(intervalId);
   }, [currentSlideIndex, storyData.slides.length]);
 
+  const handlePrev = () => {
+    if (currentSlideIndex > 0) {
+      setCurrentSlideIndex(currentSlideIndex - 1);
+      setProgress(0);
+    }
+  };
+  const handleNext = () => {
+    if (currentSlideIndex < storyData.slides.length - 1) {
+      setCurrentSlideIndex(currentSlideIndex + 1);
+      setProgress(0);
+    }
+  };
+
   return (
     <div className={style.wrapper}>
+      <div className={style.prev} onClick={handlePrev}>
+        Prev
+      </div>
       <div
         className={style.modal}
         style={{
@@ -48,6 +64,10 @@ const ShowStory = ({ storyData }) => {
           backgroundSize: "cover",
         }}
       >
+        <div className={style.social}>
+          <div onClick={() => setIsViewingStory(false)}>Close</div>
+          <div>Share</div>
+        </div>
         <div className={style.progressBarContainer}>
           {storyData?.slides?.map((slide, index) => {
             const isActive = index === currentSlideIndex;
@@ -71,6 +91,9 @@ const ShowStory = ({ storyData }) => {
             {storyData.slides[currentSlideIndex].description}
           </p>
         </div>
+      </div>
+      <div className={style.next} onClick={handleNext}>
+        Next
       </div>
     </div>
   );
