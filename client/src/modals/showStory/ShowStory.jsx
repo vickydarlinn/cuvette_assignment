@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import style from "./showStory.module.css";
+import { FaRegBookmark } from "react-icons/fa6";
+import { FaBookmark } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6";
+import { FaRegHeart } from "react-icons/fa6";
 
 const ShowStory = ({ storyData, setIsViewingStory }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [isBookMarked, setIsBookMarked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const duration = 15000 * storyData?.slides?.length || 3;
 
@@ -90,8 +96,20 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
           <p className={style.description}>
             {storyData.slides[currentSlideIndex].description}
           </p>
+          <div className={style.actions}>
+            <div className={style.bookmark}>
+              {isBookMarked ? <FaBookmark /> : <FaRegBookmark />}
+            </div>
+            <div className={style.likes}>
+              <span className={style.like}>
+                {isLiked ? <FaHeart /> : <FaRegHeart />}
+              </span>
+              <span>8</span>
+            </div>
+          </div>
         </div>
       </div>
+
       <div className={style.next} onClick={handleNext}>
         Next
       </div>

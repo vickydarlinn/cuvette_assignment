@@ -56,8 +56,11 @@
 .info {
   position: absolute;
   bottom: 10px;
-  left: 10px;
+  left: 0px;
+  padding: 10px;
   color: white;
+  border: 1px solid red;
+  width: 100%;
 }
 .heading {
   text-transform: capitalize;
@@ -76,6 +79,29 @@
   left: 0;
   color: white;
   width: 100%;
+  cursor: pointer;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px 0;
+  color: white;
+  width: 100%;
+}
+.bookmark {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.like {
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 .prev {

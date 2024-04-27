@@ -20,8 +20,10 @@ const MyStories = () => {
       }
     );
     const { data } = await response.json();
-    setStoriesData((prev) => [...prev, ...data.stories]);
-    setPendingStories(data.totalStories - page * 4);
+    if (response.ok) {
+      setStoriesData((prev) => [...prev, ...data.stories]);
+      setPendingStories(data.totalStories - page * 4);
+    }
   };
 
   useEffect(() => {

@@ -114,6 +114,14 @@ const AddStory = ({
       toast.error("All fields in each slide are required.");
       return;
     }
+    // Validate image URLs
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+
+    const isValidURL = formData.every((slide) => urlRegex.test(slide.image));
+    if (!isValidURL) {
+      toast.error("Please enter valid image URLs.");
+      return;
+    }
     isEditing
       ? editStory({
           category: selectedCategory,
@@ -223,7 +231,7 @@ const AddStory = ({
                 <option value="fashion">Fashion</option>
                 <option value="fitness">Fitness</option>
                 <option value="food">Food</option>
-                <option value="movie">Movie</option>
+                <option value="movies">Movies</option>
                 <option value="music">Music</option>
                 <option value="sports">Sports</option>
                 <option value="travel">Travel</option>

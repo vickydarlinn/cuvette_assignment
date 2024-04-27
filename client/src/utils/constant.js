@@ -1,6 +1,6 @@
 import allImage from "../assets/images/all.jpeg";
 import foodImage from "../assets/images/food.jpeg";
-import healthAndFitnessImage from "../assets/images/health_and_fitness.jpeg";
+import fitnessImage from "../assets/images/health_and_fitness.jpeg";
 import travelImage from "../assets/images/travel.jpeg";
 import moviesImage from "../assets/images/movies.jpeg";
 import educationImage from "../assets/images/education.jpeg";
@@ -19,7 +19,7 @@ export const filters = [
     title: "food",
   },
   {
-    image: healthAndFitnessImage,
+    image: fitnessImage,
     name: "Health and Fitness",
     title: "health_and_fitness",
   },
@@ -38,6 +38,16 @@ export const filters = [
     name: "Education",
     title: "education",
   },
+  {
+    image: foodImage,
+    name: "Fashion",
+    title: "fashion",
+  },
+  {
+    image: moviesImage,
+    name: "Sports",
+    title: "sports",
+  },
 ];
 export const categories = [
   {
@@ -45,8 +55,8 @@ export const categories = [
     title: "food",
   },
   {
-    name: "Health and Fitness",
-    title: "health_and_fitness",
+    name: "Fitness",
+    title: "fitness",
   },
   {
     name: "Travel",
@@ -57,7 +67,19 @@ export const categories = [
     title: "movies",
   },
   {
+    name: "Music",
+    title: "music",
+  },
+  {
     name: "Education",
     title: "education",
+  },
+  {
+    name: "Fashion",
+    title: "fashion",
+  },
+  {
+    name: "Sports",
+    title: "sports",
   },
 ];

@@ -4,9 +4,12 @@ import StoriesWrapper from "../../components/storiesWrapper";
 import { filters, categories } from "../../utils/constant";
 import style from "./homePage.module.css";
 import MyStories from "../../components/myStories";
+import { isUserLoggedInState } from "../../atom";
+import { useRecoilValue } from "recoil";
 
 const HomePage = () => {
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const isUserLoggedIn = useRecoilValue(isUserLoggedInState);
 
   return (
     <>
@@ -19,7 +22,7 @@ const HomePage = () => {
           />
         ))}
       </div>
-      <MyStories />
+      {isUserLoggedIn && <MyStories />}
       {selectedFilters.length == 0
         ? categories.map((filter) => (
             <StoriesWrapper
