@@ -4,23 +4,63 @@ import { ImCross } from "react-icons/im";
 import { backend_api } from "../../utils/constant";
 import { toast } from "react-toastify";
 
-const AddStory = ({ isOpen, handleIsOpen }) => {
+const AddStory = ({
+  isOpen,
+  handleIsOpen,
+  storyData = null,
+  isEditing = false,
+}) => {
+  console.log(storyData);
   const maxSlides = 6;
 
-  const [formData, setFormData] = useState([
-    {
-      heading: "",
-      description: "",
-      image: "",
-    },
-  ]);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [formData, setFormData] = useState(
+    storyData
+      ? storyData.slides
+      : [
+          {
+            heading: "",
+            description: "",
+            image: "",
+          },
+        ]
+  );
+  const [selectedCategory, setSelectedCategory] = useState(
+    isEditing ? storyData.category : ""
+  );
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const createStory = async ({ category, slides }) => {
     try {
       const res = await fetch(`${backend_api}/stories`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ category, slides }),
+      });
+
+      const data = await res.json();
+      if (res.status === 401) {
+        localStorage.removeItem("token");
+        window.location.reload();
+      }
+      console.log("hello");
+      if (res.ok) {
+        toast.success(data.message);
+        handleIsOpen(false);
+      } else {
+        toast.error(data.message);
+      }
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const editStory = async ({ category, slides, id }) => {
+    try {
+      const res = await fetch(`${backend_api}/stories/${id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -59,7 +99,7 @@ const AddStory = ({ isOpen, handleIsOpen }) => {
     setSelectedCategory(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     // Check if there are at least 3 slides
     if (formData.length < 3) {
       toast.error("Please add at least 3 slides.");
@@ -74,7 +114,13 @@ const AddStory = ({ isOpen, handleIsOpen }) => {
       toast.error("All fields in each slide are required.");
       return;
     }
-    await createStory({ category: selectedCategory, slides: formData });
+    isEditing
+      ? editStory({
+          category: selectedCategory,
+          slides: formData,
+          id: storyData._id,
+        })
+      : createStory({ category: selectedCategory, slides: formData });
   };
 
   const handleAddSlide = () => {
@@ -173,14 +219,14 @@ const AddStory = ({ isOpen, handleIsOpen }) => {
                 value={selectedCategory}
               >
                 <option value="">Select</option>
-                <option value="Education">Education</option>
-                <option value="Fashion">Fashion</option>
-                <option value="Fitness">Fitness</option>
-                <option value="Food">Food</option>
-                <option value="Movie">Movie</option>
-                <option value="Music">Music</option>
-                <option value="Sports">Sports</option>
-                <option value="Travel">Travel</option>
+                <option value="education">Education</option>
+                <option value="fashion">Fashion</option>
+                <option value="fitness">Fitness</option>
+                <option value="food">Food</option>
+                <option value="movie">Movie</option>
+                <option value="music">Music</option>
+                <option value="sports">Sports</option>
+                <option value="travel">Travel</option>
               </select>
             </div>
           </div>
@@ -192,7 +238,9 @@ const AddStory = ({ isOpen, handleIsOpen }) => {
             <button onClick={handleNextSlide}>next</button>
           </div>
           <div>
-            <button onClick={handleSubmit}>Post</button>
+            <button onClick={handleSubmit}>
+              {isEditing ? "Edit" : "Post"}
+            </button>
           </div>
         </div>
       </div>

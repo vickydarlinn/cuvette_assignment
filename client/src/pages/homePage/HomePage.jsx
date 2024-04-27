@@ -3,6 +3,7 @@ import FilterCard from "../../components/filterCard";
 import StoriesWrapper from "../../components/storiesWrapper";
 import { filters, categories } from "../../utils/constant";
 import style from "./homePage.module.css";
+import MyStories from "../../components/myStories";
 
 const HomePage = () => {
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -18,6 +19,7 @@ const HomePage = () => {
           />
         ))}
       </div>
+      <MyStories />
       {selectedFilters.length == 0
         ? categories.map((filter) => (
             <StoriesWrapper

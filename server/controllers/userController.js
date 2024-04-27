@@ -23,11 +23,31 @@ exports.fetchUserDetails = (req, res) => {
 // Fetch stories created by the user
 exports.fetchMyStories = async (req, res) => {
   try {
-    const stories = await Story.find({ author: req.user.id });
+    const page = parseInt(req.query.page) || 1;
+    const limit = 4;
+    const skip = (page - 1) * limit;
+
+    const count = await Story.countDocuments({ author: req.user.id });
+    const stories = await Story.find({ author: req.user.id })
+      .skip(skip)
+      .limit(limit);
+
+    if (stories.length === 0 && count > 1) {
+      return res.status(404).json({
+        success: false,
+        message: "No stories found for this category",
+        data: [],
+      });
+    }
+
     res.status(200).json({
       success: true,
       message: "Stories retrieved successfully",
-      data: stories,
+      data: {
+        stories,
+        totalStories: count,
+        currentPage: page,
+      },
     });
   } catch (error) {
     res.status(500).json({

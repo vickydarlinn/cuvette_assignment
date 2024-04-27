@@ -74,9 +74,9 @@ exports.editStory = async (req, res) => {
 exports.fetchStoriesByCategory = async (req, res) => {
   try {
     const { category } = req.params;
-    const page = parseInt(req.query.page) || 1; // Get page number from query parameter or default to 1
-    const limit = 4; // Number of stories per page
-    const skip = (page - 1) * limit; // Calculate how many documents to skip
+    const page = parseInt(req.query.page) || 1;
+    const limit = 4;
+    const skip = (page - 1) * limit;
 
     const count = await Story.countDocuments({ category });
     const stories = await Story.find({ category }).skip(skip).limit(limit);
