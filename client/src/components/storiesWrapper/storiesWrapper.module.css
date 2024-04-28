@@ -1,15 +1,14 @@
 .wrapper {
-  border: 1px solid red;
   padding: 20px;
 }
 .heading {
   text-align: center;
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   margin: 20px 0;
 }
 .storiesWrapper {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   gap: 20px;
 }
@@ -17,4 +16,18 @@
   text-align: center;
   font-size: 1.6rem;
   margin: 100px 0;
+}
+.seeMore {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 40px 0;
+}
+.seeMore button {
+  background-color: #ff7373;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 500;
+  font-size: 1.8rem;
 }

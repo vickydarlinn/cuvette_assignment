@@ -37,7 +37,11 @@ const StoriesWrapper = ({ category, name }) => {
       ) : (
         <div className={style.storyNotFound}>No Stories Available</div>
       )}
-      {pendingStories > 0 && <button onClick={handleLoadMore}>See More</button>}
+      {pendingStories > 0 && (
+        <div className={style.seeMore}>
+          <button onClick={handleLoadMore}>See More</button>
+        </div>
+      )}
     </section>
   );
 };

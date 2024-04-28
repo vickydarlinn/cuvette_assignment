@@ -1,5 +1,5 @@
 .wrapper {
-  width: calc(100% / 4 - 20px);
+  flex-grow: 1;
   min-width: 250px;
   height: 550px;
   background-position: center;
@@ -8,7 +8,6 @@
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid red;
 }
 .content {
   position: absolute;
@@ -71,4 +70,10 @@
 }
 .btn:hover {
   background-color: rgb(220, 220, 220);
+}
+
+@media screen and (max-width: 1024) {
+  .wrapper {
+    width: calc(100% / 3 - 20px);
+  }
 }
