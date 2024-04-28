@@ -1,0 +1,90 @@
+.navBtns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.navBtn {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: white;
+  padding: 8px;
+  border-radius: 20px;
+  cursor: pointer;
+  min-width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+a {
+  text-decoration: none;
+}
+.red {
+  background-color: #ff7373;
+}
+.blue {
+  background-color: #73abff;
+}
+.bookmark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.userProfile,
+.menu {
+  width: 25px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.profile {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 40;
+  width: 250px;
+  padding: 40px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.name {
+  font-weight: 500;
+  font-size: 1.8rem;
+  text-transform: capitalize;
+}
+
+.mobileNavBtns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  gap: 20px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.mobileUserProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 1.8rem;
+  text-transform: capitalize;
+}
+.mobileUserIcon {
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

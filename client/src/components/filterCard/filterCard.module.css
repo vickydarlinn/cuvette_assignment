@@ -23,3 +23,10 @@
   font-weight: bold;
   text-transform: capitalize;
 }
+
+@media screen and (max-width: 425px) {
+  .wrapper {
+    height: 100px;
+    min-width: 100px;
+  }
+}

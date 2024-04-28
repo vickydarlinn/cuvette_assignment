@@ -13,8 +13,6 @@ const StoryCard = ({ storyData, isMyStory = false }) => {
   const [isShowingBtn, setIsShowingBtn] = useState(false);
   const [isShowingStoryModal, setIsShowingStoryModal] = useState(false);
 
-  console.log(storyData);
-
   const handleShowStory = () => {
     setIsViewingStory(true);
   };

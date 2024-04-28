@@ -1,0 +1,31 @@
+.progressBarContainer {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 10px;
+}
+
+.progressBar {
+  height: 5px;
+  width: 100%;
+  background-color: #d9d9d980; /* Gray color */
+  position: relative;
+}
+
+.progressBar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: calc(var(--progress) * 100%);
+  background-color: #ffffff; /* White color */
+}
+.progressBarCompleted {
+  background-color: #ffffff; /* White color */
+}

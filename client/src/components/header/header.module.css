@@ -5,19 +5,22 @@
   padding: 20px;
   border-bottom: 1px solid #e0e0e0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.logo {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #333;
 }
 .navBtns {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #333;
-}
+
 .navBtn {
-  font-size: 1rem;
+  font-size: 1.8rem;
   font-weight: 500;
   color: white;
   padding: 8px;
@@ -29,21 +32,12 @@
   align-items: center;
   gap: 5px;
 }
-
+a {
+  text-decoration: none;
+}
 .red {
   background-color: #ff7373;
 }
 .blue {
   background-color: #73abff;
-}
-.bookmark {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.userProfile,
-.menu {
-  width: 25px;
-  margin-left: 5px;
-  cursor: pointer;
 }

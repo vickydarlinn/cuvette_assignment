@@ -27,6 +27,7 @@ const LoginModal = ({ handleIsOpen }) => {
       if (response.ok) {
         toast.success(data.message);
         localStorage.setItem("token", data.data.token);
+        localStorage.setItem("userId", data.data.user.id);
         setIsUserLoggedIn(true);
         handleIsOpen(false);
       } else {

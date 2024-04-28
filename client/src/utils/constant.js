@@ -20,8 +20,8 @@ export const filters = [
   },
   {
     image: fitnessImage,
-    name: "Health and Fitness",
-    title: "health_and_fitness",
+    name: "Fitness",
+    title: "fitness",
   },
   {
     image: travelImage,

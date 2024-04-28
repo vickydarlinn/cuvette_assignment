@@ -19,6 +19,7 @@ const HomePage = () => {
             key={filter.title}
             filterData={filter}
             setSelectedFilters={setSelectedFilters}
+            selectedFilters={selectedFilters}
           />
         ))}
       </div>

@@ -1,11 +1,10 @@
-// Import any necessary modules or models
-
 const User = require("../models/userModel");
 const Story = require("../models/storyModel");
 
-exports.fetchUserDetails = (req, res) => {
+exports.fetchUserDetails = async (req, res) => {
   try {
-    const userDetails = User.findById(req.user.id);
+    const userDetails = await User.findById(req.user.id);
+    console.log(userDetails);
     res.status(200).json({
       success: true,
       message: "User details fetched successfully",

@@ -1,20 +1,16 @@
 import { useState } from "react";
 import styles from "./header.module.css";
-import { Link } from "react-router-dom";
-import { FaBookmark } from "react-icons/fa";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { FaUserCircle } from "react-icons/fa";
 import { isUserLoggedInState } from "../../atom";
 import { useRecoilValue } from "recoil";
 import RegisterModal from "../../modals/register";
 import LoginModal from "../../modals/login";
-import AddStoryModal from "../../modals/addStory";
+import Authorized from "./authorized/Authorized";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const isUserLoggedIn = useRecoilValue(isUserLoggedInState);
   const [isShowingRegister, setIsShowingRegister] = useState(false);
   const [isShowingLogin, setIsShowingLogin] = useState(false);
-  const [isShowingAddStory, setIsShowingAddStory] = useState(false);
 
   const handleRegister = () => {
     setIsShowingRegister(true);
@@ -23,35 +19,14 @@ const Header = () => {
   const handleLogin = () => {
     setIsShowingLogin(true);
   };
-  const handleShowAddStoryModal = () => {
-    setIsShowingAddStory(true);
-  };
   return (
     <>
       <header className={styles.wrapper}>
-        <div className={styles.logo}>SwipTory</div>
+        <Link to="/" className={styles.logo}>
+          SwipTory
+        </Link>
         {isUserLoggedIn ? (
-          <div className={styles.navBtns}>
-            <Link to="/bookmarks" className={`${styles.navBtn} ${styles.red}`}>
-              {" "}
-              <span className={styles.bookmark}>
-                <FaBookmark />
-              </span>
-              <span>Bookmarks</span>
-            </Link>
-            <div
-              onClick={handleShowAddStoryModal}
-              className={`${styles.navBtn} ${styles.red}`}
-            >
-              Add story
-            </div>
-            <div className={styles.userProfile}>
-              <FaUserCircle />
-            </div>
-            <div className={styles.menu}>
-              <GiHamburgerMenu />
-            </div>
-          </div>
+          <Authorized />
         ) : (
           <div className={styles.navBtns}>
             <div
@@ -69,7 +44,6 @@ const Header = () => {
           </div>
         )}
       </header>
-
       {isShowingRegister && (
         <RegisterModal
           isOpen={isShowingRegister}
@@ -78,12 +52,6 @@ const Header = () => {
       )}
       {isShowingLogin && (
         <LoginModal isOpen={isShowingLogin} handleIsOpen={setIsShowingLogin} />
-      )}
-      {isShowingAddStory && (
-        <AddStoryModal
-          isOpen={isShowingAddStory}
-          handleIsOpen={setIsShowingAddStory}
-        />
       )}
     </>
   );

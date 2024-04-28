@@ -27,7 +27,6 @@ exports.createStory = async (req, res) => {
       data: newStory,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: "Server error while creating story",
@@ -139,16 +138,8 @@ exports.toggleBookmark = async (req, res) => {
   const userId = req.user._id;
 
   try {
-    const story = await Story.findById(storyId);
     const user = await User.findById(userId);
 
-    if (!story || !user) {
-      return res.status(404).json({
-        status: "error",
-        message: "Story or user not found",
-        data: null,
-      });
-    }
     const index = user.bookmarks.indexOf(storyId);
     if (index === -1) {
       user.bookmarks.push(storyId);
@@ -170,6 +161,7 @@ exports.toggleBookmark = async (req, res) => {
     });
   }
 };
+
 // Toggle like on a story
 exports.toggleLike = async (req, res) => {
   const storyId = req.params.id;

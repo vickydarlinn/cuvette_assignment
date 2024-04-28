@@ -19,6 +19,5 @@ app.use("/api/v1/users", userRoutes);
 app.get("/", (req, res) => {
   res.send("Hello, Web Story Platform!");
 });
-console.log(process.env.PORT);
 
 module.exports = app;
