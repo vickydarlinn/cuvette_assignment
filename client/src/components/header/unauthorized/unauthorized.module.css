@@ -17,7 +17,7 @@
   align-items: center;
   gap: 5px;
 }
-a {
+header a {
   text-decoration: none;
 }
 .red {

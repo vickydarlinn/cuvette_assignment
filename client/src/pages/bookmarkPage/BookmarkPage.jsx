@@ -15,7 +15,7 @@ const BookMarkPage = () => {
         })
       ) : (
         <div className={style.noBookmark}>
-          <p>No Bookmarks</p>
+          <p className={style.description}>No Bookmarks</p>
           <Link className={style.goHomeBtn} to="/">
             Go Home
           </Link>

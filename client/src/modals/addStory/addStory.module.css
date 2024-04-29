@@ -81,28 +81,45 @@
   gap: 10px;
 }
 
-input {
+.heading input {
   flex-grow: 1;
-  padding: 4px;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #ccc;
+}
+.image input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #ccc;
+}
+.heading input:active {
   outline: none;
 }
-input:active {
-  outline: none;
-}
-textarea {
+.description textarea {
   flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
   outline: none;
+  border: 1px solid #ccc;
 }
-option {
+.category option {
   flex-grow: 1;
-  padding: 4px;
-}
-select {
-  flex-grow: 1;
-  padding: 4px;
+  padding: 10px;
+  border-radius: 5px;
   outline: none;
+  border: 1px solid #ccc;
 }
-label {
+.category select {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #ccc;
+}
+.storyInfo label {
   min-width: 100px;
 }
 .btns {
@@ -138,7 +155,7 @@ label {
 }
 @media screen and (max-width: 720px) {
   .storyInfo {
-    gap: 20px;
+    gap: 10px;
   }
 
   .heading,

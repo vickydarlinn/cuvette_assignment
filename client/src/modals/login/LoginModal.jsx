@@ -61,7 +61,7 @@ const LoginModal = ({ handleIsOpen }) => {
         onSubmit={handleSubmit}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2>Login to SwipTory</h2>
+        <h2 className={style.heading}>Login to SwipTory</h2>
         <div className={style.formData}>
           <div className={style.username}>
             <label htmlFor="username">Username</label>
@@ -102,7 +102,9 @@ const LoginModal = ({ handleIsOpen }) => {
             </div>
           </div>
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" className={style.loginBtn}>
+          Login
+        </button>
         <div
           onClick={() => {
             handleIsOpen(false);

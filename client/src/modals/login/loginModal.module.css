@@ -22,7 +22,7 @@
   flex-direction: column;
   gap: 20px;
 }
-h2 {
+.heading {
   text-align: center;
   padding: 20px 0;
 }
@@ -62,7 +62,7 @@ h2 {
   justify-content: center;
   width: 20px;
 }
-input {
+.formData input {
   padding: 10px;
   border-radius: 10px;
   outline: none;

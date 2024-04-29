@@ -22,20 +22,21 @@
   flex-direction: column;
   gap: 20px;
 }
-h2 {
+.heading {
   text-align: center;
   padding: 20px 0;
 }
-input {
-  padding: 10px;
-  border-radius: 10px;
-  outline: none;
-  border: 1px solid #ccc;
-}
+
 .formData {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+.formData input {
+  padding: 10px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #ccc;
 }
 .username,
 .password {

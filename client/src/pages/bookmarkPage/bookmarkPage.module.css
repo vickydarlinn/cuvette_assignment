@@ -13,7 +13,7 @@
   flex-direction: column;
   gap: 20px;
 }
-p {
+.description {
   font-size: 2rem;
   font-weight: 700;
 }

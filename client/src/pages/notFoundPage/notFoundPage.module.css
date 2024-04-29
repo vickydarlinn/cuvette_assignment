@@ -7,7 +7,7 @@
   flex-direction: column;
   gap: 20px;
 }
-p {
+.info {
   text-align: center;
 }
 .goHomeBtn {

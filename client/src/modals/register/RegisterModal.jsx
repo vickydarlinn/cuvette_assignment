@@ -66,7 +66,7 @@ const RegisterModal = ({ handleIsOpen }) => {
         onSubmit={handleSubmit}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2>Register to SwipTory</h2>
+        <h2 className={style.heading}>Register to SwipTory</h2>
         <div className={style.formData}>
           <div className={style.username}>
             <label htmlFor="username">Username</label>
