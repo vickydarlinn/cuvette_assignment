@@ -9,6 +9,9 @@ import { toast } from "react-toastify";
 import ProgressBar from "./progressBar";
 import { userInfoState } from "../../atom";
 import { useRecoilState } from "recoil";
+import { isSmallScreen } from "../../utils/utils";
+import { RxCross1 } from "react-icons/rx";
+import { FiSend } from "react-icons/fi";
 
 const ShowStory = ({ storyData, setIsViewingStory }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -78,13 +81,32 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
     }
   };
 
+  const handleModalClick = (e) => {
+    const containerWidth = e.currentTarget.offsetWidth;
+    const clickX = e.nativeEvent.offsetX;
+    const clickY = e.nativeEvent.offsetY;
+    const clickPercentage = (clickX / containerWidth) * 100;
+
+    console.log(containerWidth, clickX, clickY, clickPercentage);
+    if (clickY >= 70 && clickY <= 600) {
+      if (clickPercentage <= 50) {
+        handlePrev();
+      } else {
+        handleNext();
+      }
+    }
+  };
+
   return (
     <div className={style.wrapper}>
-      <div className={style.prev} onClick={handlePrev}>
-        Prev
-      </div>
+      {!isSmallScreen() && (
+        <div className={style.prev} onClick={handlePrev}>
+          Prev
+        </div>
+      )}
       <div
         className={style.modal}
+        onClick={(e) => handleModalClick(e)}
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgb(0 0 0 / 80%) 10%, rgb(0 0 0 / 0%) 80%, rgb(0 0 0) 100%), 
@@ -94,8 +116,15 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
         }}
       >
         <div className={style.social}>
-          <div onClick={() => setIsViewingStory(false)}>Close</div>
-          <div>Share</div>
+          <div
+            className={style.closeIcon}
+            onClick={() => setIsViewingStory(false)}
+          >
+            <RxCross1 />
+          </div>
+          <div className={style.shareIcon}>
+            <FiSend />
+          </div>
         </div>
         <ProgressBar
           storyData={storyData}
@@ -132,9 +161,11 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
         </div>
       </div>
 
-      <div className={style.next} onClick={handleNext}>
-        Next
-      </div>
+      {!isSmallScreen() && (
+        <div className={style.next} onClick={handleNext}>
+          Next
+        </div>
+      )}
     </div>
   );
 };
