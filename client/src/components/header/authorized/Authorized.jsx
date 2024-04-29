@@ -19,6 +19,7 @@ const Authorized = () => {
 
   const handleShowAddStoryModal = () => {
     setIsShowingAddStory(true);
+    setIsShowingMenubar(false);
   };
 
   const fetchUserInfo = async () => {

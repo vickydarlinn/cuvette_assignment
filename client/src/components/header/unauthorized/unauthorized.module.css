@@ -1,0 +1,48 @@
+.navBtns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navBtn {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: white;
+  padding: 8px;
+  border-radius: 20px;
+  cursor: pointer;
+  min-width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+a {
+  text-decoration: none;
+}
+.red {
+  background-color: #ff7373;
+}
+.blue {
+  background-color: #73abff;
+}
+.menu {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .navBtns {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 70;
+    padding: 30px;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .menu {
+    display: flex;
+    width: 25px;
+  }
+}

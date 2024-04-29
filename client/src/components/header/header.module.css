@@ -13,31 +13,3 @@
   font-weight: 700;
   color: #333;
 }
-.navBtns {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.navBtn {
-  font-size: 1.8rem;
-  font-weight: 500;
-  color: white;
-  padding: 8px;
-  border-radius: 20px;
-  cursor: pointer;
-  min-width: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-}
-a {
-  text-decoration: none;
-}
-.red {
-  background-color: #ff7373;
-}
-.blue {
-  background-color: #73abff;
-}
