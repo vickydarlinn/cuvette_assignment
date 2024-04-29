@@ -26,6 +26,12 @@ h2 {
   text-align: center;
   padding: 20px 0;
 }
+input {
+  padding: 10px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #ccc;
+}
 .formData {
   display: flex;
   flex-direction: column;
@@ -63,7 +69,16 @@ h2 {
   justify-content: center;
   width: 20px;
 }
-
+.registerBtn {
+  padding: 10px 80px;
+  cursor: pointer;
+  background-color: #ff7373;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  margin-right: 10px;
+  text-transform: capitalize;
+}
 @media screen and (max-width: 768px) {
   .formData {
     gap: 25px;

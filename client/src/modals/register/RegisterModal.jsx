@@ -107,7 +107,9 @@ const RegisterModal = ({ handleIsOpen }) => {
             </div>
           </div>
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" className={style.registerBtn}>
+          Register
+        </button>
         <div onClick={() => handleIsOpen(false)} className={style.cross}>
           <GrClose />
         </div>
