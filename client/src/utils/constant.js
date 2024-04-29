@@ -6,7 +6,7 @@ import moviesImage from "../assets/images/movies.jpeg";
 import educationImage from "../assets/images/education.jpeg";
 
 // export const backend_api = "http://localhost:3500/api/v1";
-const backend_api = "https://swiptory-api-jsnh.onrender.com/api/v1";
+export const backend_api = "https://swiptory-api-jsnh.onrender.com/api/v1";
 
 export const filters = [
   {
