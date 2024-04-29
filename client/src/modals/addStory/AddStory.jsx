@@ -3,6 +3,7 @@ import style from "./addStory.module.css";
 import { ImCross } from "react-icons/im";
 import { backend_api } from "../../utils/constant";
 import { toast } from "react-toastify";
+import { RxCross1 } from "react-icons/rx";
 
 const AddStory = ({
   isOpen,
@@ -235,16 +236,19 @@ const AddStory = ({
           </div>
         )}
         <div className={style.btns}>
-          <div>
+          <div className={style.slideMoverBtn}>
             <button onClick={handlePrevSlide}>prev</button>
 
             <button onClick={handleNextSlide}>next</button>
           </div>
           <div>
-            <button onClick={handleSubmit}>
+            <button onClick={handleSubmit} className={style.submitBtn}>
               {isEditing ? "Edit" : "Post"}
             </button>
           </div>
+        </div>
+        <div className={style.cross} onClick={() => handleIsOpen(false)}>
+          <RxCross1 />
         </div>
       </div>
     </div>

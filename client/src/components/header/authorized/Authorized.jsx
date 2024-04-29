@@ -10,13 +10,13 @@ import { useRecoilState } from "recoil";
 import { userInfoState } from "../../../atom";
 import { toast } from "react-toastify";
 import { isSmallScreen } from "../../../utils/utils";
+import { autoLogout } from "../../../utils/utils";
 
 const Authorized = () => {
   const [isShowingAddStory, setIsShowingAddStory] = useState(false);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [isShowingMenubar, setIsShowingMenubar] = useState(false);
   const [isShowingProfile, setIsShowingProfile] = useState(false);
-
   const handleShowAddStoryModal = () => {
     setIsShowingAddStory(true);
     setIsShowingMenubar(false);
@@ -32,10 +32,13 @@ const Authorized = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      const { data } = await res.json();
+      const data = await res.json();
+      if (res.status === 401) {
+        autoLogout();
+      }
 
       if (res.ok) {
-        setUserInfo(data);
+        setUserInfo(data.data);
       }
     } catch (error) {
       toast.error(error.message);

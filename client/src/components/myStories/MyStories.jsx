@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import StoryCard from "../storyCard";
 import style from "./myStories.module.css";
 import { backend_api } from "../../utils/constant";
+import { autoLogout } from "../../utils/utils";
 
 const MyStories = () => {
   const [storiesData, setStoriesData] = useState([]);
@@ -19,10 +20,13 @@ const MyStories = () => {
         },
       }
     );
-    const { data } = await response.json();
+    const data = await response.json();
+    if (response.status === 401) {
+      autoLogout();
+    }
     if (response.ok) {
-      setStoriesData((prev) => [...prev, ...data.stories]);
-      setPendingStories(data.totalStories - page * 4);
+      setStoriesData((prev) => [...prev, ...data.data.stories]);
+      setPendingStories(data.data.totalStories - page * 4);
     }
   };
 

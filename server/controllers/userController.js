@@ -3,7 +3,7 @@ const Story = require("../models/storyModel");
 
 exports.fetchUserDetails = async (req, res) => {
   try {
-    const userDetails = await User.findById(req.user.id);
+    const userDetails = await User.findById(req.user.id).populate("bookmarks");
     res.status(200).json({
       success: true,
       message: "User details fetched successfully",
@@ -56,22 +56,22 @@ exports.fetchMyStories = async (req, res) => {
   }
 };
 
-// Fetch bookmarked stories
-exports.fetchBookmarkedStories = async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).populate("bookmarks");
-    res.status(200).json({
-      success: true,
+// // Fetch bookmarked stories
+// exports.fetchBookmarkedStories = async (req, res) => {
+//   try {
+//     const user = await User.findById(req.user.id).populate("bookmarks");
+//     res.status(200).json({
+//       success: true,
 
-      message: "Bookmarked stories retrieved successfully",
-      data: user.bookmarks,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
+//       message: "Bookmarked stories retrieved successfully",
+//       data: user.bookmarks,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
 
-      message: "Server error while fetching bookmarked stories",
-      data: error.message,
-    });
-  }
-};
+//       message: "Server error while fetching bookmarked stories",
+//       data: error.message,
+//     });
+//   }
+// };

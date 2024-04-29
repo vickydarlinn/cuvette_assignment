@@ -138,11 +138,14 @@ exports.toggleBookmark = async (req, res) => {
   const userId = req.user._id;
 
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate("bookmarks");
+    const story = await Story.findById(storyId);
 
-    const index = user.bookmarks.indexOf(storyId);
+    const index = user.bookmarks.findIndex(
+      (bookmark) => bookmark._id.toString() === storyId
+    );
     if (index === -1) {
-      user.bookmarks.push(storyId);
+      user.bookmarks.push(story);
     } else {
       user.bookmarks.splice(index, 1);
     }

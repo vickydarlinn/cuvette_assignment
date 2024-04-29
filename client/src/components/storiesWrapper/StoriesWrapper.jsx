@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import StoryCard from "../storyCard";
 import style from "./storiesWrapper.module.css";
 import { backend_api } from "../../utils/constant";
+import { toast } from "react-toastify";
 
 const StoriesWrapper = ({ category, name }) => {
   const [storiesData, setStoriesData] = useState([]);
@@ -12,9 +13,13 @@ const StoriesWrapper = ({ category, name }) => {
     const response = await fetch(
       `${backend_api}/stories/categories/${category}?page=${currentPage}`
     );
-    const { data } = await response.json();
-    setStoriesData((prev) => [...prev, ...data.stories]);
-    setPendingStories(data.totalStories - page * 4);
+    const data = await response.json();
+    if (response.ok) {
+      setStoriesData((prev) => [...prev, ...data.data.stories]);
+      setPendingStories(data.data.totalStories - page * 4);
+    } else {
+      toast.error(data.message);
+    }
   };
 
   useEffect(() => {

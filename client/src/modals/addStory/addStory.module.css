@@ -10,13 +10,14 @@
 
 .modal {
   background-color: white;
-  width: 100%;
+  width: 95%;
   max-width: 475px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
+  position: relative;
 }
 .slides {
   display: flex;
@@ -109,7 +110,7 @@ label {
   justify-content: space-between;
   padding: 20px;
 }
-button {
+.btns button {
   padding: 4px;
   min-width: 80px;
   cursor: pointer;
@@ -118,6 +119,53 @@ button {
   border-radius: 10px;
   color: white;
   font-size: 1.8rem;
-  margin-right: 10px;
   text-transform: capitalize;
+}
+.slideMoverBtn {
+  display: flex;
+  gap: 10px;
+}
+.cross {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: black;
+  width: 20px;
+}
+@media screen and (max-width: 720px) {
+  .storyInfo {
+    gap: 20px;
+  }
+
+  .heading,
+  .description,
+  .image,
+  .category {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .heading input {
+    width: 100%;
+  }
+  .description textarea {
+    width: 100%;
+  }
+  .category select {
+    width: 100%;
+  }
+  .btns {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .slideMoverBtn {
+    flex-direction: column;
+  }
+  .submitBtn {
+    width: 100%;
+  }
 }

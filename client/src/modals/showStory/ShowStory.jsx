@@ -12,6 +12,11 @@ import { useRecoilState } from "recoil";
 import { isSmallScreen } from "../../utils/utils";
 import { RxCross1 } from "react-icons/rx";
 import { FiSend } from "react-icons/fi";
+import { isUserLoggedInState } from "../../atom";
+import { useRecoilValue } from "recoil";
+import { autoLogout } from "../../utils/utils";
+import { GrNext } from "react-icons/gr";
+import { GrPrevious } from "react-icons/gr";
 
 const ShowStory = ({ storyData, setIsViewingStory }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -19,7 +24,10 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [totalLikes, setTotalLikes] = useState(storyData?.likes?.length || 0);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const isBookMarked = userInfo?.bookmarks?.some((id) => id === storyData?._id);
+  const isBookMarked = userInfo?.bookmarks?.some(
+    (bookmark) => bookmark._id === storyData?._id
+  );
+  const isUserLoggedIn = useRecoilValue(isUserLoggedInState);
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
@@ -41,6 +49,10 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
     }
   };
   const handleLike = async (id) => {
+    if (!isUserLoggedIn) {
+      toast.error("Please login to like the story");
+      return;
+    }
     try {
       const url = `${backend_api}/stories/toggle-like/${id}`;
       const response = await fetch(url, {
@@ -51,6 +63,10 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
         },
       });
       const data = await response.json();
+      if (response.status === 401) {
+        autoLogout();
+        toast.error("Please Login Again");
+      }
       if (response.ok) {
         setTotalLikes(data.data);
         setIsLiked((prev) => !prev);
@@ -63,6 +79,10 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
   };
 
   const handleBookmark = async (id) => {
+    if (!isUserLoggedIn) {
+      toast.error("Please login to bookmark the story");
+      return;
+    }
     try {
       const url = `${backend_api}/stories/toggle-bookmark/${id}`;
       const res = await fetch(url, {
@@ -72,9 +92,15 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      const { data } = await res.json();
+      const data = await res.json();
+      if (res.status === 401) {
+        autoLogout();
+        toast.error("Please Login Again");
+      }
       if (res.ok) {
-        setUserInfo((prev) => ({ ...prev, bookmarks: data }));
+        setUserInfo((prev) => ({ ...prev, bookmarks: data.data }));
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error(error.message);
@@ -100,7 +126,7 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
     <div className={style.wrapper}>
       {!isSmallScreen() && (
         <div className={style.prev} onClick={handlePrev}>
-          Prev
+          <GrPrevious />
         </div>
       )}
       <div
@@ -162,7 +188,7 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
 
       {!isSmallScreen() && (
         <div className={style.next} onClick={handleNext}>
-          Next
+          <GrNext />
         </div>
       )}
     </div>

@@ -1,35 +1,25 @@
-import { useEffect, useState } from "react";
-import { backend_api } from "../../utils/constant";
 import StoryCard from "../../components/storyCard";
 import style from "./bookmarkPage.module.css";
+import { useRecoilValue } from "recoil";
+import { userInfoState } from "../../atom";
+import { Link } from "react-router-dom";
 
 const BookMarkPage = () => {
-  const [bookmarks, setBookmarks] = useState([]);
-  useEffect(() => {
-    fetchMyBookmarkedStories();
-  }, []);
-
-  const fetchMyBookmarkedStories = async () => {
-    const url = `${backend_api}/users/bookmarks`;
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    const data = await response.json();
-
-    setBookmarks(data.data);
-  };
+  const userInfo = useRecoilValue(userInfoState);
+  const bookmarks = userInfo?.bookmarks;
   return (
     <div className={style.wrapper}>
-      {bookmarks.length > 0 ? (
+      {bookmarks?.length > 0 ? (
         bookmarks?.map((story) => {
           return <StoryCard key={story._id} storyData={story} />;
         })
       ) : (
-        <h1>No Bookmarks</h1>
+        <div className={style.noBookmark}>
+          <p>No Bookmarks</p>
+          <Link className={style.goHomeBtn} to="/">
+            Go Home
+          </Link>
+        </div>
       )}
     </div>
   );

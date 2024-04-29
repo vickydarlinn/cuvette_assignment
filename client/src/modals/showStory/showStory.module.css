@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 20;
+  z-index: 100;
 }
 .modal {
   position: absolute;
@@ -93,16 +93,18 @@
   color: white;
   position: fixed;
   top: 50%;
-  left: 25%;
+  left: 20%;
   cursor: pointer;
+  width: 50px;
 }
 .next {
   z-index: 20;
   color: white;
   position: fixed;
   top: 50%;
-  right: 25%;
+  right: 20%;
   cursor: pointer;
+  width: 50px;
 }
 
 @media screen and (max-width: 768px) {
