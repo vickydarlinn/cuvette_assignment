@@ -37,11 +37,13 @@
   border-radius: 10px;
   outline: none;
   border: 1px solid #ccc;
+  width: 100%;
 }
 .username,
 .password {
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 
 .cross {

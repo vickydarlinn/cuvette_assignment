@@ -36,6 +36,7 @@
 .password {
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 .cross {
   position: absolute;
@@ -67,6 +68,7 @@
   border-radius: 10px;
   outline: none;
   border: 1px solid #ccc;
+  width: 100%;
 }
 .loginBtn {
   padding: 10px 80px;
