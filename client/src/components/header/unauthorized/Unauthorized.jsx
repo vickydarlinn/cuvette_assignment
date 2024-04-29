@@ -3,6 +3,7 @@ import styles from "./unauthorized.module.css";
 import RegisterModal from "../../../modals/register";
 import LoginModal from "../../../modals/login";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { isSmallScreen } from "../../../utils/utils";
 
 const Unauthorized = () => {
   const [isShowingRegister, setIsShowingRegister] = useState(false);
@@ -23,28 +24,48 @@ const Unauthorized = () => {
   };
   return (
     <>
-      <div
-        className={styles.navBtns}
-        style={{
-          display: isShowingMenu ? "flex" : "none",
-        }}
-      >
-        <div
-          onClick={handleRegister}
-          className={`${styles.navBtn} ${styles.red}`}
-        >
-          Register Now
+      {isSmallScreen() ? (
+        <>
+          <div
+            className={styles.mobileNavBtns}
+            style={{
+              display: isShowingMenu ? "flex" : "none",
+            }}
+          >
+            <div
+              onClick={handleRegister}
+              className={`${styles.navBtn} ${styles.red}`}
+            >
+              Register Now
+            </div>
+            <div
+              onClick={handleLogin}
+              className={`${styles.navBtn} ${styles.blue}`}
+            >
+              Sign In
+            </div>
+          </div>
+          <div className={styles.menu} onClick={handleShow}>
+            <GiHamburgerMenu />
+          </div>
+        </>
+      ) : (
+        <div className={styles.navBtns}>
+          <div
+            onClick={handleRegister}
+            className={`${styles.navBtn} ${styles.red}`}
+          >
+            Register Now
+          </div>
+          <div
+            onClick={handleLogin}
+            className={`${styles.navBtn} ${styles.blue}`}
+          >
+            Sign In
+          </div>
         </div>
-        <div
-          onClick={handleLogin}
-          className={`${styles.navBtn} ${styles.blue}`}
-        >
-          Sign In
-        </div>
-      </div>
-      <div className={styles.menu} onClick={handleShow}>
-        <GiHamburgerMenu />
-      </div>
+      )}
+
       {isShowingRegister && (
         <RegisterModal
           isOpen={isShowingRegister}

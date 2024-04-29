@@ -113,4 +113,11 @@ button {
   padding: 4px;
   min-width: 80px;
   cursor: pointer;
+  background-color: #ff7373;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.8rem;
+  margin-right: 10px;
+  text-transform: capitalize;
 }

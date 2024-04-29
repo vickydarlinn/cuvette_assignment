@@ -10,7 +10,6 @@ const AddStory = ({
   storyData = null,
   isEditing = false,
 }) => {
-  console.log(storyData);
   const maxSlides = 6;
 
   const [formData, setFormData] = useState(
@@ -45,16 +44,14 @@ const AddStory = ({
         localStorage.removeItem("token");
         window.location.reload();
       }
-      console.log("hello");
       if (res.ok) {
         toast.success(data.message);
         handleIsOpen(false);
       } else {
         toast.error(data.message);
       }
-      console.log(data);
     } catch (err) {
-      console.log(err);
+      toast.error(err.message);
     }
   };
   const editStory = async ({ category, slides, id }) => {
@@ -73,16 +70,14 @@ const AddStory = ({
         localStorage.removeItem("token");
         window.location.reload();
       }
-      console.log("hello");
       if (res.ok) {
         toast.success(data.message);
         handleIsOpen(false);
       } else {
         toast.error(data.message);
       }
-      console.log(data);
     } catch (err) {
-      console.log(err);
+      toast.error(err.message);
     }
   };
 

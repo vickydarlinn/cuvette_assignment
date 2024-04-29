@@ -1,13 +1,16 @@
 import { useState } from "react";
 import style from "./registerModal.module.css";
 import { toast } from "react-toastify";
-
+import { GrClose } from "react-icons/gr";
+import { IoMdEye } from "react-icons/io";
+import { IoMdEyeOff } from "react-icons/io";
 import { isUserLoggedInState } from "../../atom";
 import { useRecoilState } from "recoil";
 import { backend_api } from "../../utils/constant";
 
 const RegisterModal = ({ handleIsOpen }) => {
   const [_, setIsUserLoggedIn] = useRecoilState(isUserLoggedInState);
+  const [isShowingPassword, setIsShowingPassword] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -23,7 +26,6 @@ const RegisterModal = ({ handleIsOpen }) => {
         body: JSON.stringify({ username, password }),
       });
       const data = await response.json();
-      console.log(data);
       if (response.ok) {
         toast.success(data.message);
         localStorage.setItem("token", data?.data?.token);
@@ -46,7 +48,6 @@ const RegisterModal = ({ handleIsOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userData);
     registerFn(userData);
   };
 
@@ -54,11 +55,20 @@ const RegisterModal = ({ handleIsOpen }) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
   return (
-    <div className={style.wrapper}>
-      <form className={style.modal} onSubmit={handleSubmit}>
+    <div
+      className={style.wrapper}
+      onClick={(e) => {
+        handleIsOpen(false);
+      }}
+    >
+      <form
+        className={style.modal}
+        onSubmit={handleSubmit}
+        onClick={(e) => e.stopPropagation()}
+      >
         <h2>Register to SwipTory</h2>
-        <div>
-          <div>
+        <div className={style.formData}>
+          <div className={style.username}>
             <label htmlFor="username">Username</label>
             <input
               type="text"
@@ -70,20 +80,36 @@ const RegisterModal = ({ handleIsOpen }) => {
           </div>
           <div className={style.password}>
             <label htmlFor="password">Password</label>
-            <input
-              onChange={handleChange}
-              type="password"
-              placeholder="Enter password"
-              value={userData.password}
-              autoComplete="on"
-              name="password"
-            />
-            <div className={style.eye}>Tes</div>
+            <div className={style.passwordInput}>
+              <input
+                onChange={handleChange}
+                type={isShowingPassword ? "text" : "password"}
+                placeholder="Enter password"
+                value={userData.password}
+                autoComplete="on"
+                name="password"
+              />
+              {isShowingPassword ? (
+                <div className={style.eye}>
+                  <IoMdEyeOff
+                    onClick={() => setIsShowingPassword(false)}
+                    className={style.eye}
+                  />
+                </div>
+              ) : (
+                <div className={style.eye}>
+                  <IoMdEye
+                    onClick={() => setIsShowingPassword(true)}
+                    className={style.eye}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <button type="submit">Register</button>
         <div onClick={() => handleIsOpen(false)} className={style.cross}>
-          XX
+          <GrClose />
         </div>
       </form>
     </div>

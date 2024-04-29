@@ -41,7 +41,6 @@ const Authorized = () => {
       toast.error(error.message);
     }
   };
-  console.log(userInfo);
   useEffect(() => {
     fetchUserInfo();
   }, []);

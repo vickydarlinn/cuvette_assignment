@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { GrClose } from "react-icons/gr";
+import { IoMdEye } from "react-icons/io";
+import { IoMdEyeOff } from "react-icons/io";
 
 import style from "./loginModal.module.css";
 import { isUserLoggedInState } from "../../atom";
@@ -12,9 +15,9 @@ const LoginModal = ({ handleIsOpen }) => {
     username: "",
     password: "",
   });
+  const [isShowingPassword, setIsShowingPassword] = useState(false);
 
   const loginFn = async ({ username, password }) => {
-    console.log(username, password);
     try {
       const response = await fetch(`${backend_api}/auth/login`, {
         method: "POST",
@@ -45,7 +48,6 @@ const LoginModal = ({ handleIsOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userData);
     loginFn(userData);
   };
 
@@ -53,11 +55,15 @@ const LoginModal = ({ handleIsOpen }) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
   return (
-    <div className={style.wrapper}>
-      <form className={style.modal} onSubmit={handleSubmit}>
+    <div className={style.wrapper} onClick={() => handleIsOpen(false)}>
+      <form
+        className={style.modal}
+        onSubmit={handleSubmit}
+        onClick={(e) => e.stopPropagation()}
+      >
         <h2>Login to SwipTory</h2>
-        <div>
-          <div>
+        <div className={style.formData}>
+          <div className={style.username}>
             <label htmlFor="username">Username</label>
             <input
               onChange={handleChange}
@@ -69,15 +75,31 @@ const LoginModal = ({ handleIsOpen }) => {
           </div>
           <div className={style.password}>
             <label htmlFor="password">Password</label>
-            <input
-              onChange={handleChange}
-              type="password"
-              placeholder="Enter password"
-              value={userData.password}
-              autoComplete="on"
-              name="password"
-            />
-            <div className={style.eye}>Tes</div>
+            <div className={style.passwordInput}>
+              <input
+                onChange={handleChange}
+                type={isShowingPassword ? "text" : "password"}
+                placeholder="Enter password"
+                value={userData.password}
+                autoComplete="on"
+                name="password"
+              />
+              {isShowingPassword ? (
+                <div className={style.eye}>
+                  <IoMdEyeOff
+                    onClick={() => setIsShowingPassword(false)}
+                    className={style.eye}
+                  />
+                </div>
+              ) : (
+                <div className={style.eye}>
+                  <IoMdEye
+                    onClick={() => setIsShowingPassword(true)}
+                    className={style.eye}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <button type="submit">Login</button>
@@ -87,7 +109,7 @@ const LoginModal = ({ handleIsOpen }) => {
           }}
           className={style.cross}
         >
-          XX
+          <GrClose />
         </div>
       </form>
     </div>

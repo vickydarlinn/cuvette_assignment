@@ -87,7 +87,6 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
     const clickY = e.nativeEvent.offsetY;
     const clickPercentage = (clickX / containerWidth) * 100;
 
-    console.log(containerWidth, clickX, clickY, clickPercentage);
     if (clickY >= 70 && clickY <= 600) {
       if (clickPercentage <= 50) {
         handlePrev();

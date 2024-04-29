@@ -178,7 +178,6 @@ exports.toggleLike = async (req, res) => {
       });
     }
     const index = story.likes.indexOf(userId);
-    console.log(index);
     if (index === -1) {
       story.likes.push(userId);
     } else {

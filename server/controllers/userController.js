@@ -4,7 +4,6 @@ const Story = require("../models/storyModel");
 exports.fetchUserDetails = async (req, res) => {
   try {
     const userDetails = await User.findById(req.user.id);
-    console.log(userDetails);
     res.status(200).json({
       success: true,
       message: "User details fetched successfully",
