@@ -3,13 +3,16 @@ import StoryCard from "../storyCard";
 import style from "./myStories.module.css";
 import { backend_api } from "../../utils/constant";
 import { autoLogout } from "../../utils/utils";
+import Skeleton from "../skeleton";
 
 const MyStories = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [storiesData, setStoriesData] = useState([]);
   const [page, setPage] = useState(1);
   const [pendingStories, setPendingStories] = useState();
 
   const fetchStoriesFn = async (currentPage) => {
+    setIsLoading(true);
     const response = await fetch(
       `${backend_api}/users/stories?page=${currentPage}`,
       {
@@ -28,6 +31,7 @@ const MyStories = () => {
       setStoriesData((prev) => [...prev, ...data.data.stories]);
       setPendingStories(data.data.totalStories - page * 4);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -43,7 +47,20 @@ const MyStories = () => {
         <section className={style.wrapper}>
           <h2 className={style.heading}>Your Stories</h2>
 
-          {storiesData?.length > 0 ? (
+          {isLoading ? (
+            <div
+              style={{
+                display: "flex",
+                gap: "20px",
+                flexWrap: "wrap",
+              }}
+            >
+              <Skeleton height={500} />
+              <Skeleton height={500} />
+              <Skeleton height={500} />
+              <Skeleton height={500} />
+            </div>
+          ) : storiesData?.length > 0 ? (
             <div className={style.storiesWrapper}>
               {storiesData?.map((story) => (
                 <StoryCard key={story._id} storyData={story} isMyStory={true} />
