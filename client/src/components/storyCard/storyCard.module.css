@@ -1,6 +1,7 @@
 .wrapper {
   flex-grow: 1;
   min-width: 250px;
+
   height: 550px;
   background-position: center;
   background-size: cover;

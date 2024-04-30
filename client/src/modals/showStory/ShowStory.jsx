@@ -17,8 +17,10 @@ import { useRecoilValue } from "recoil";
 import { autoLogout } from "../../utils/utils";
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 
 const ShowStory = ({ storyData, setIsViewingStory }) => {
+  const navigate = useNavigate();
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
@@ -122,6 +124,30 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
     }
   };
 
+  const handleShare = (storyData) => {
+    console.log(storyData);
+    const currentUrl = window.location.href;
+    const updatedUrl = `${currentUrl}stories/${storyData._id}`;
+    navigator.clipboard
+      .writeText(updatedUrl)
+      .then(() => {
+        toast.success("URL copied to clipboard");
+      })
+      .catch((error) => {
+        toast.error("Failed to copy URL to clipboard");
+      });
+  };
+
+  const handleClose = () => {
+    const currentUrl = window.location.href;
+
+    if (currentUrl.includes("/stories/")) {
+      navigate("/");
+    } else {
+      setIsViewingStory(false);
+    }
+  };
+
   return (
     <div className={style.wrapper}>
       {!isSmallScreen() && (
@@ -135,19 +161,19 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
         style={{
           backgroundImage: `
           linear-gradient(0deg, rgb(0 0 0 / 80%) 10%, rgb(0 0 0 / 0%) 80%, rgb(0 0 0) 100%), 
-                    url(${storyData.slides[currentSlideIndex].image})`,
+                    url(${storyData?.slides[currentSlideIndex]?.image})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
       >
         <div className={style.social}>
-          <div
-            className={style.closeIcon}
-            onClick={() => setIsViewingStory(false)}
-          >
+          <div className={style.closeIcon} onClick={() => handleClose()}>
             <RxCross1 />
           </div>
-          <div className={style.shareIcon}>
+          <div
+            className={style.shareIcon}
+            onClick={() => handleShare(storyData)}
+          >
             <FiSend />
           </div>
         </div>
@@ -161,10 +187,10 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
 
         <div className={style.info}>
           <h3 className={style.heading}>
-            {storyData.slides[currentSlideIndex].heading}
+            {storyData?.slides[currentSlideIndex]?.heading}
           </h3>
           <p className={style.description}>
-            {storyData.slides[currentSlideIndex].description}
+            {storyData?.slides[currentSlideIndex]?.description}
           </p>
           <div className={style.actions}>
             <div

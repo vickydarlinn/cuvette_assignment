@@ -33,7 +33,7 @@ const ProgressBar = ({
     startAnimation();
 
     return () => clearInterval(intervalId);
-  }, [currentSlideIndex, storyData.slides.length]);
+  }, [currentSlideIndex, storyData?.slides?.length]);
   return (
     <div className={style.progressBarContainer}>
       {storyData?.slides?.map((slide, index) => {
