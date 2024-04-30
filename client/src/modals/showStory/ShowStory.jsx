@@ -45,7 +45,7 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
     }
   };
   const handleNext = () => {
-    if (currentSlideIndex < storyData.slides.length - 1) {
+    if (currentSlideIndex < storyData?.slides?.length - 1) {
       setCurrentSlideIndex(currentSlideIndex + 1);
       setProgress(0);
     }
@@ -127,7 +127,7 @@ const ShowStory = ({ storyData, setIsViewingStory }) => {
   const handleShare = (storyData) => {
     console.log(storyData);
     const currentUrl = window.location.href;
-    const updatedUrl = `${currentUrl}stories/${storyData._id}`;
+    const updatedUrl = `${currentUrl}stories/${storyData?._id}`;
     navigator.clipboard
       .writeText(updatedUrl)
       .then(() => {

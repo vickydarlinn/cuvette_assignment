@@ -20,7 +20,7 @@ const ProgressBar = ({
         setProgress((prevProgress) => {
           if (prevProgress >= 100) {
             clearInterval(intervalId);
-            if (currentSlideIndex < storyData.slides.length - 1) {
+            if (currentSlideIndex < storyData?.slides?.length - 1) {
               setCurrentSlideIndex((prevIndex) => prevIndex + 1);
               return 0;
             }

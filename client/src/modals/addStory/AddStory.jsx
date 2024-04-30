@@ -16,7 +16,7 @@ const AddStory = ({
 
   const [formData, setFormData] = useState(
     storyData
-      ? storyData.slides
+      ? storyData?.slides
       : [
           {
             heading: "",
@@ -26,7 +26,7 @@ const AddStory = ({
         ]
   );
   const [selectedCategory, setSelectedCategory] = useState(
-    isEditing ? storyData.category : ""
+    isEditing ? storyData?.category : ""
   );
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -129,7 +129,7 @@ const AddStory = ({
       ? editStory({
           category: selectedCategory,
           slides: formData,
-          id: storyData._id,
+          id: storyData?._id,
         })
       : createStory({ category: selectedCategory, slides: formData });
   };

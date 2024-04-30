@@ -40,7 +40,7 @@ const Authorized = () => {
       }
 
       if (res.ok) {
-        setUserInfo(data.data);
+        setUserInfo(data?.data);
       }
     } catch (error) {
       toast.error(error.message);
