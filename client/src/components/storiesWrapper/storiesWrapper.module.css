@@ -8,7 +8,8 @@
 }
 .storiesWrapper {
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
+  justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
 }
@@ -30,4 +31,5 @@
   color: white;
   font-weight: 500;
   font-size: 1.8rem;
+  cursor: pointer;
 }

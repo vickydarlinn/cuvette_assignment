@@ -10,6 +10,7 @@ import { useRecoilState } from "recoil";
 import { backend_api } from "../../utils/constant";
 
 const LoginModal = ({ handleIsOpen }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [_, setIsUserLoggedIn] = useRecoilState(isUserLoggedInState);
   const [userData, setUserData] = useState({
     username: "",
@@ -18,6 +19,7 @@ const LoginModal = ({ handleIsOpen }) => {
   const [isShowingPassword, setIsShowingPassword] = useState(false);
 
   const loginFn = async ({ username, password }) => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${backend_api}/auth/login`, {
         method: "POST",
@@ -43,6 +45,7 @@ const LoginModal = ({ handleIsOpen }) => {
         username: "",
         password: "",
       });
+      setIsLoading(false);
     }
   };
 
@@ -102,9 +105,13 @@ const LoginModal = ({ handleIsOpen }) => {
             </div>
           </div>
         </div>
-        <button type="submit" className={style.loginBtn}>
-          Login
-        </button>
+        {isLoading ? (
+          <button className={style.loginBtn}>Loading...</button>
+        ) : (
+          <button type="submit" className={style.loginBtn}>
+            Login
+          </button>
+        )}
         <div
           onClick={() => {
             handleIsOpen(false);

@@ -9,6 +9,7 @@ import { useRecoilState } from "recoil";
 import { backend_api } from "../../utils/constant";
 
 const RegisterModal = ({ handleIsOpen }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [_, setIsUserLoggedIn] = useRecoilState(isUserLoggedInState);
   const [isShowingPassword, setIsShowingPassword] = useState(false);
   const [userData, setUserData] = useState({
@@ -17,6 +18,7 @@ const RegisterModal = ({ handleIsOpen }) => {
   });
 
   const registerFn = async ({ username, password }) => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${backend_api}/auth/register`, {
         method: "POST",
@@ -43,6 +45,7 @@ const RegisterModal = ({ handleIsOpen }) => {
         username: "",
         password: "",
       });
+      setIsLoading(false);
     }
   };
 
@@ -107,9 +110,13 @@ const RegisterModal = ({ handleIsOpen }) => {
             </div>
           </div>
         </div>
-        <button type="submit" className={style.registerBtn}>
-          Register
-        </button>
+        {isLoading ? (
+          <button className={style.registerBtn}>Loading...</button>
+        ) : (
+          <button type="submit" className={style.registerBtn}>
+            Register
+          </button>
+        )}
         <div onClick={() => handleIsOpen(false)} className={style.cross}>
           <GrClose />
         </div>

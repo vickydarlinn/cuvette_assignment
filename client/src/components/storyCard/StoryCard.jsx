@@ -7,6 +7,7 @@ import AddStory from "../../modals/addStory";
 import { MdEdit } from "react-icons/md";
 
 import { HiDotsVertical } from "react-icons/hi";
+import { toast } from "react-toastify";
 
 const StoryCard = ({ storyData, isMyStory = false }) => {
   const [isViewingStory, setIsViewingStory] = useState(false);
@@ -26,6 +27,11 @@ const StoryCard = ({ storyData, isMyStory = false }) => {
     e.stopPropagation();
     setIsShowingStoryModal(true);
     setIsShowingBtn(false);
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    toast.info("Delete feature is not available in this version");
   };
   return (
     <>
@@ -57,7 +63,7 @@ const StoryCard = ({ storyData, isMyStory = false }) => {
               </span>
               <span>Edit</span>
             </div>
-            <div className={style.btn}>
+            <div className={style.btn} onClick={handleDelete}>
               <span>
                 <MdDelete />
               </span>

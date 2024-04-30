@@ -12,6 +12,7 @@ const AddStory = ({
   isEditing = false,
 }) => {
   const maxSlides = 6;
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState(
     storyData
@@ -30,6 +31,7 @@ const AddStory = ({
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const createStory = async ({ category, slides }) => {
+    setIsLoading(true);
     try {
       const res = await fetch(`${backend_api}/stories`, {
         method: "POST",
@@ -53,9 +55,12 @@ const AddStory = ({
       }
     } catch (err) {
       toast.error(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
   const editStory = async ({ category, slides, id }) => {
+    setIsLoading(true);
     try {
       const res = await fetch(`${backend_api}/stories/${id}`, {
         method: "PUT",
@@ -79,6 +84,8 @@ const AddStory = ({
       }
     } catch (err) {
       toast.error(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -147,7 +154,12 @@ const AddStory = ({
   };
 
   const handleNextSlide = () => {
-    if (currentSlide < formData.length - 1) setCurrentSlide((prev) => prev + 1);
+    if (currentSlide < formData.length - 1) {
+      setCurrentSlide((prev) => prev + 1);
+    }
+    if (currentSlide === formData.length - 1) {
+      handleAddSlide();
+    }
   };
   const handlePrevSlide = () => {
     if (currentSlide > 0) setCurrentSlide((prev) => prev - 1);
@@ -242,9 +254,13 @@ const AddStory = ({
             <button onClick={handleNextSlide}>next</button>
           </div>
           <div>
-            <button onClick={handleSubmit} className={style.submitBtn}>
-              {isEditing ? "Edit" : "Post"}
-            </button>
+            {isLoading ? (
+              <button className={style.submitBtn}>Loading...</button>
+            ) : (
+              <button onClick={handleSubmit} className={style.submitBtn}>
+                {isEditing ? "Update" : "Post"}
+              </button>
+            )}
           </div>
         </div>
         <div className={style.cross} onClick={() => handleIsOpen(false)}>

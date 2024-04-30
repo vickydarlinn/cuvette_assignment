@@ -11,8 +11,10 @@ import { userInfoState } from "../../../atom";
 import { toast } from "react-toastify";
 import { isSmallScreen } from "../../../utils/utils";
 import { autoLogout } from "../../../utils/utils";
+import { useNavigate } from "react-router-dom";
 
 const Authorized = () => {
+  const navigate = useNavigate();
   const [isShowingAddStory, setIsShowingAddStory] = useState(false);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [isShowingMenubar, setIsShowingMenubar] = useState(false);
@@ -51,6 +53,7 @@ const Authorized = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
+    navigate("/");
     window.location.reload();
   };
 
