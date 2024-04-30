@@ -43,12 +43,13 @@ const StoriesWrapper = ({ category, name }) => {
             display: "flex",
             gap: "20px",
             flexWrap: "wrap",
+            justifyContent: "center",
           }}
         >
-          <Skeleton height={500} />
-          <Skeleton height={500} />
-          <Skeleton height={500} />
-          <Skeleton height={500} />
+          <Skeleton height={500} width={275} />
+          <Skeleton height={500} width={275} />
+          <Skeleton height={500} width={275} />
+          <Skeleton height={500} width={275} />
         </div>
       ) : storiesData?.length > 0 ? (
         <div className={style.storiesWrapper}>

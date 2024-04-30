@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./skeleton.module.css";
 
-const Skeleton = ({ width = "500px", height = "250px" }) => {
+const Skeleton = ({ width = "250px", height = "250px" }) => {
   return (
     <div
       className={styles.skeleton}
